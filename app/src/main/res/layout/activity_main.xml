@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/find_your_space_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find your space."
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="70dp"
+        android:layout_marginStart="99dp"
+        />
+
+    <TextView
+        android:id="@+id/description1_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coworking spaces with desks, offices and"
+        android:textSize="18sp"
+        android:textColor="#A3A2A2"
+        app:layout_constraintTop_toBottomOf="@id/find_your_space_text"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="25dp"
+        />
+
+    <TextView
+        android:id="@+id/description2_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" meeting rooms."
+        android:textSize="18sp"
+        android:textColor="#A3A2A2"
+        app:layout_constraintTop_toBottomOf="@id/description1_text"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="100dp"
+        />
+
+    <TextView
+        android:id="@+id/description3_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Discover and reserve space today."
+        android:textSize="18sp"
+        android:textColor="#A3A2A2"
+        app:layout_constraintTop_toBottomOf="@id/description2_text"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="50dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/filter_id"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        app:layout_constraintTop_toBottomOf="@id/description3_text"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal"
+        android:background="@drawable/border">
+
+
+        <ImageView
+            android:id="@+id/image_location"
+            android:layout_width="34dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginStart="15dp"
+            app:srcCompat="@drawable/baseline_location_on_24" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="59dp"
+            android:background="#BDBDBD"
+            android:layout_marginTop="-9dp"
+            android:layout_marginStart="10dp"
+            />
+
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Select space type"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="20dp"
+            />
+
+        <ImageView
+            android:id="@+id/image_arrow_down"
+            android:layout_width="25dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginStart="40dp"
+            app:srcCompat="@drawable/baseline_keyboard_arrow_down_24" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/date_piker_id"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        app:layout_constraintTop_toBottomOf="@id/filter_id"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:background="@drawable/border">
+
+
+        <ImageView
+            android:id="@+id/image_calender"
+            android:layout_width="34dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            app:srcCompat="@drawable/baseline_date_range_24" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="59dp"
+            android:background="#BDBDBD"
+            android:layout_marginTop="-9dp"
+            android:layout_marginStart="10dp"
+            />
+
+        <TextView
+            android:id="@+id/text_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Select date"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="20dp"
+            />
+
+    </LinearLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_find_space"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:background="@drawable/border_button"
+        android:text="Find a space"
+        android:textSize="18dp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/date_piker_id"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="70dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
