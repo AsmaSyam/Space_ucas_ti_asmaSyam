@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "502541258565",
+    "project_id": "space-ucas-ti",
+    "storage_bucket": "space-ucas-ti.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502541258565:android:7b9e292f78d411084ff82c",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "502541258565-v36lpj2jcafd284a16lo3c1arihfm5bf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDr7M_eTkOmA-jQj6pxL-dlFJQEcjHqDcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "502541258565-v36lpj2jcafd284a16lo3c1arihfm5bf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

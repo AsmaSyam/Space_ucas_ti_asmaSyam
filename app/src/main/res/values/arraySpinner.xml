@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="Select_space_type">
+     <item>Select space type</item>
+     <item>Meeting Room</item>
+     <item>Training Lab</item>
+     <item>Work Space</item>
+     <item>Office</item>
+    </string-array>
+</resources>
