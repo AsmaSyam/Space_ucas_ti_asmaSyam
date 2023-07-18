@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
-import com.example.space_ucas_ti_asmasyam.databinding.ActivityRoomBinding;
 import com.example.space_ucas_ti_asmasyam.databinding.ActivityTrainingLabBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,6 +38,7 @@ public class TrainingLabActivity extends AppCompatActivity {
 
         firestore = FirebaseFirestore.getInstance();
 
+        binding.progressBar.setVisibility(View.VISIBLE);
 
         adapter = new  roomAdapter( new ArrayList<>(), getApplicationContext());
         binding.recyclerViewRoom.setAdapter(adapter);
@@ -64,6 +65,8 @@ public class TrainingLabActivity extends AppCompatActivity {
 
                                 list.add(newsClass);
                                 Toast.makeText(TrainingLabActivity.this, task.getResult().toString(), Toast.LENGTH_SHORT).show();
+
+                                binding.progressBar.setVisibility(View.GONE);
 
                             }
                             adapter.setData(list);

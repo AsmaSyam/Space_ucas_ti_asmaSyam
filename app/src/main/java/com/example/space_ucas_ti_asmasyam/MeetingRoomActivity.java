@@ -5,14 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.space_ucas_ti_asmasyam.databinding.ActivityRoomBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -40,6 +39,9 @@ public class MeetingRoomActivity extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
 
         firebaseStorage = FirebaseStorage.getInstance();
+
+        binding.progressBar.setVisibility(View.VISIBLE);
+
 
 
 
@@ -69,6 +71,7 @@ public class MeetingRoomActivity extends AppCompatActivity {
 
                                 list.add(newsClass);
                                 Toast.makeText(MeetingRoomActivity.this, task.getResult().toString(), Toast.LENGTH_SHORT).show();
+                                binding.progressBar.setVisibility(View.GONE);
 
                             }
                             adapter.setData(list);

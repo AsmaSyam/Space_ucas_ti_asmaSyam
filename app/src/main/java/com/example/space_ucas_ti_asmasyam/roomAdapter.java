@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.space_ucas_ti_asmasyam.databinding.ItemSpaceBinding;
 
 import java.util.List;
@@ -59,8 +60,10 @@ public class roomAdapter extends RecyclerView.Adapter<roomAdapter.RoomViewHolder
         String people = list.get(pos).getCapacity();
         holder.people.setText(people);
 
-//        String image = list.get(pos).getImage_bath();
-//        holder.imageView.setImageDrawable(Drawable.createFromPath(image));
+        String image = list.get(pos).getImage_bath();
+        Glide.with(context)
+                .load(image)
+                .into(holder.imageView);
 
 
 
