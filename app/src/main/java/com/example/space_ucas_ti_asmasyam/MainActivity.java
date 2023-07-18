@@ -1,32 +1,29 @@
 package com.example.space_ucas_ti_asmasyam;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.space_ucas_ti_asmasyam.databinding.ActivityMainBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     ActivityMainBinding binding ;
     FirebaseFirestore firestore ;
 
-    roomAdapter adapter ;
+    String type ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +32,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
+        firestore = FirebaseFirestore.getInstance();
+
+
+
+
+//        binding.buttonFindSpace.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Log.d("add", "");
+//
+//                room_class roomClass = new room_class("Trainning Room" , "" , "24" ,"" ,
+//                        "" , "" , "" , "10.00" , "" , "" , "" ,
+//                        "" , "" , "" ,"" , "" , " 6th Floor" , "Training Lab");
+//
+//                firestore.collection("Room").document("Training Lab2").set(roomClass);
+//
+//            }
+//        });
 
 
         String[] filter = getResources().getStringArray(R.array.Select_space_type);
@@ -43,13 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding.filterSpinner.setAdapter(adapter);
 
-
-        binding.filterId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+//        binding.filterSpinner.setOnItemClickListener((AdapterView.OnItemClickListener) this);
 
         binding.datePikerId.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,5 +94,30 @@ public class MainActivity extends AppCompatActivity {
                 dpd.show(getSupportFragmentManager(), "Datepickerdialog");
             }
         });
+
+
+
+        binding.buttonFindSpace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (type.equals("Meeting Room")){
+                    startActivity(new Intent(MainActivity.this , MeetingRoomActivity.class));
+                }
+
+            }
+        });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+         type = adapterView.getItemAtPosition(i).toString();
+        Toast.makeText(this, type, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

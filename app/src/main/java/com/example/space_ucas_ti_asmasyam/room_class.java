@@ -21,6 +21,36 @@ public class room_class {
     String location ;
     String type ;
 
+
+    public room_class() {
+
+    }
+
+    public room_class(String name, String code, String capacity, String width,
+                      String length, String bookable, String base_cost,
+                      String unit_cost, String rates, String minimum_term, String maximum_term,
+                      String image_bath, String rating,
+                      String total_reviews, String status, String cancel_until, String location, String type) {
+        this.name = name;
+        this.code = code;
+        this.capacity = capacity;
+        this.width = width;
+        this.length = length;
+        this.bookable = bookable;
+        this.base_cost = base_cost;
+        this.unit_cost = unit_cost;
+        this.rates = rates;
+        this.minimum_term = minimum_term;
+        this.maximum_term = maximum_term;
+        this.image_bath = image_bath;
+        this.rating = rating;
+        this.total_reviews = total_reviews;
+        this.status = status;
+        this.cancel_until = cancel_until;
+        this.location = location;
+        this.type = type;
+    }
+
     public String getName() {
         return name;
     }

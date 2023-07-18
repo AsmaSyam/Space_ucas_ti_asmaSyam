@@ -1,8 +1,10 @@
 package com.example.space_ucas_ti_asmasyam;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -57,6 +59,9 @@ public class roomAdapter extends RecyclerView.Adapter<roomAdapter.RoomViewHolder
         String people = list.get(pos).getCapacity();
         holder.people.setText(people);
 
+//        String image = list.get(pos).getImage_bath();
+//        holder.imageView.setImageDrawable(Drawable.createFromPath(image));
+
 
 
 
@@ -78,6 +83,8 @@ public class roomAdapter extends RecyclerView.Adapter<roomAdapter.RoomViewHolder
         TextView people ;
         TextView area ;
 
+        ImageView imageView ;
+
         public RoomViewHolder(@NonNull ItemSpaceBinding binding) {
             super(binding.getRoot());
 
@@ -87,6 +94,7 @@ public class roomAdapter extends RecyclerView.Adapter<roomAdapter.RoomViewHolder
             hourly = binding.textHourly ;
             people = binding.textPeople ;
             area = binding.textArea ;
+            imageView = binding.imageSpace;
         }
     }
 
