@@ -112,7 +112,7 @@
                     <LinearLayout
                         android:id="@+id/linear_start_time"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_marginTop="80dp"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -123,10 +123,12 @@
                         <TextView
                             android:id="@+id/text_start_time"
                             android:layout_width="80dp"
-                            android:layout_height="50dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:hint="__:__ __"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
+                            android:layout_marginTop="15dp"
 
                             />
 
@@ -153,7 +155,7 @@
                     <LinearLayout
                         android:id="@+id/linear_end_time"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_marginTop="30dp"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -164,10 +166,11 @@
                         <TextView
                             android:id="@+id/text_end_time"
                             android:layout_width="80dp"
-                            android:layout_height="50dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:hint="__:__ __"
                             android:textAlignment="center"
+                            android:layout_marginTop="15dp"
                             />
 
                         <ImageView
