@@ -101,9 +101,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View view) {
 
-                if (type.equals("Meeting Room")){
-                    startActivity(new Intent(MainActivity.this , MeetingRoomActivity.class));
-                }
+//                if (type.equals("Meeting Room")){
+//                    startActivity(new Intent(MainActivity.this , MeetingRoomActivity.class));
+//                }
+
+                startActivity(new Intent(MainActivity.this , MeetingRoomActivity.class));
 
             }
         });

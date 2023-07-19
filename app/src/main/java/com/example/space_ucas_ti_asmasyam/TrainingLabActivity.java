@@ -20,7 +20,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrainingLabActivity extends AppCompatActivity {
+public class TrainingLabActivity extends AppCompatActivity implements Listener{
 
     ActivityTrainingLabBinding binding ;
 
@@ -40,7 +40,7 @@ public class TrainingLabActivity extends AppCompatActivity {
 
         binding.progressBar.setVisibility(View.VISIBLE);
 
-        adapter = new  roomAdapter( new ArrayList<>(), getApplicationContext());
+        adapter = new  roomAdapter( new ArrayList<>(), getApplicationContext() , this);
         binding.recyclerViewRoom.setAdapter(adapter);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(TrainingLabActivity.this, RecyclerView.VERTICAL,
                 false);
@@ -77,6 +77,11 @@ public class TrainingLabActivity extends AppCompatActivity {
 
                     }
                 });
+
+    }
+
+    @Override
+    public void IsClickDetails(int position, room_class roomClass) {
 
     }
 }

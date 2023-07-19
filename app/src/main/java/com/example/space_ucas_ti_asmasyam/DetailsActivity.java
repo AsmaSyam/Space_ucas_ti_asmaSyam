@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -13,12 +13,10 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.space_ucas_ti_asmasyam.databinding.ActivityDetailsBinding;
-import com.google.type.Color;
 
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 
@@ -38,6 +36,18 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         calendar = Calendar.getInstance();
+
+        Intent intent = getIntent();
+        String name  = intent.getStringExtra("name");
+        String capacity  = intent.getStringExtra("capacity");
+        String location  = intent.getStringExtra("location");
+        String minimum_term  = intent.getStringExtra("minimum_term");
+        String type  = intent.getStringExtra("type");
+
+
+        binding.nameRoomId.setText(name);
+        binding.location2Id.setText(location);
+
 
         binding.calenderId.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override

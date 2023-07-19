@@ -2,7 +2,9 @@ package com.example.space_ucas_ti_asmasyam;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.location.GnssAntennaInfo;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,10 +22,14 @@ public class roomAdapter extends RecyclerView.Adapter<roomAdapter.RoomViewHolder
     List<room_class> list ;
     Context context ;
 
+    Listener listener ;
 
-    public roomAdapter(List<room_class> list  , Context context) {
+
+
+    public roomAdapter(List<room_class> list  , Context context , Listener listener) {
         this.list = list;
         this.context = context ;
+        this.listener = listener ;
     }
 
 
@@ -66,6 +72,14 @@ public class roomAdapter extends RecyclerView.Adapter<roomAdapter.RoomViewHolder
                 .into(holder.imageView);
 
 
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                listener.IsClickDetails(pos , list.get(pos));
+            }
+        });
 
 
     }
