@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TimePicker;
@@ -34,6 +35,24 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
+
+//        binding.buttonCheck.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Log.d("add", "");
+//
+//                Bookable_class bookableClass = new Bookable_class("id" , "number" , "yes" ,"bookable_id" ,
+//                        "parent_id" , "user_id" , "first_name" , "last_name" , "" , "" , "" ,
+//                        "" , "" , "" ,"" , "" , " 6th Floor" , "Training Lab");
+//
+//                firestore.collection("Room").document("Training Lab2").set(roomClass);
+//
+//            }
+//        });
+
 
         calendar = Calendar.getInstance();
 
@@ -103,7 +122,7 @@ public class DetailsActivity extends AppCompatActivity {
                 }, 12 , 0 , false
         );
 
-       // timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.));
+        // timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.));
 
         timePickerDialog.updateTime(t1Hour , t1Minute);
         timePickerDialog.show();
