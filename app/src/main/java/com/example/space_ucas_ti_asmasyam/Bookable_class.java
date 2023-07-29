@@ -1,9 +1,6 @@
 package com.example.space_ucas_ti_asmasyam;
 
 public class Bookable_class {
-
-    String id ;
-    String number ;
     String first_name ;
     String last_name ;
     String email ;
@@ -28,13 +25,11 @@ public class Bookable_class {
 
     }
 
-    public Bookable_class(String id, String number, String first_name, String last_name, String email, String phone_number,
+    public Bookable_class(String first_name, String last_name, String email, String phone_number,
                           String start_time, String end_time, String duration, String timezone,
                           String rrule, String until, String people, String fees, String currency,
                           String status, String review_sent_at,
                           String reviewed_at, String payment_status, String title) {
-        this.id = id;
-        this.number = number;
 
         this.first_name = first_name;
         this.last_name = last_name;
@@ -56,21 +51,6 @@ public class Bookable_class {
         this.title = title;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
 
     public String getFirst_name() {
         return first_name;

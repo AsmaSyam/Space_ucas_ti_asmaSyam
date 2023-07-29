@@ -38,6 +38,7 @@ public class DetailsActivity extends AppCompatActivity {
     String endTime;
 
     String roomNameId ;
+    String people ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class DetailsActivity extends AppCompatActivity {
         binding.location2Id.setText(location);
 
         roomNameId = binding.nameRoomId.getText().toString();
+        people = binding.textPeople.getText().toString();
 
 
         binding.calenderId.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -99,6 +101,7 @@ public class DetailsActivity extends AppCompatActivity {
                 intent1.putExtra("startTime" , startTime);
                 intent1.putExtra("endTime" , endTime);
                 intent1.putExtra("roomNameId" , roomNameId);
+                intent1.putExtra("people" , people);
                 startActivity(intent1);
             }
         });
