@@ -62,9 +62,10 @@
                         />
 
                     <TextView
+                        android:id="@+id/room_name_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Apps Development Lab"
+                        android:text=""
                         android:textSize="20dp"
                         android:textColor="#BA5C3E"
                         android:layout_marginStart="70dp"
@@ -78,34 +79,50 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Date"
-                        android:textSize="20dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="20dp"
-                        />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="25/08/2023"
-                        android:textSize="20dp"
-                        android:textColor="#777575"
-                        android:layout_marginStart="105dp"
-                        android:layout_marginTop="20dp"
-                        />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Date"
+                            android:textSize="20dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Change"
-                        android:textSize="20dp"
-                        android:textColor="#BA5C3E"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginStart="10dp"
-                        />
+                        <TextView
+                            android:id="@+id/dateText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/change_text_id"
+                            android:layout_marginEnd="10dp"
+                            android:text=""
+                            android:textSize="20dp"
+                            android:textColor="#777575"
+                            android:layout_marginTop="20dp"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/change_text_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Change"
+                            android:textSize="20dp"
+                            android:textColor="#BA5C3E"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="20dp"
+                            />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 </LinearLayout>
 
@@ -125,12 +142,32 @@
                         />
 
                     <TextView
+                        android:id="@+id/startTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="14:22 - 16:22"
+                        android:text=""
                         android:textSize="20dp"
                         android:textColor="#777575"
-                        android:layout_marginStart="171dp"
+                        android:layout_marginStart="140dp"
+                        android:layout_marginTop="20dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" - "
+                        android:textSize="20dp"
+                        android:textColor="#777575"
+                        android:layout_marginTop="20dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/endTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="20dp"
+                        android:textColor="#777575"
                         android:layout_marginTop="20dp"
                         />
 
@@ -252,6 +289,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/first_text"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
+                android:inputType="text"
                 android:background="@drawable/border_edit"
                 />
 
@@ -275,6 +313,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/first_text"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="40dp"
+                android:inputType="text"
                 android:background="@drawable/border_edit"
                 />
 
@@ -300,6 +339,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/phone_number_text"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
+                android:inputType="number"
                 android:background="@drawable/border_edit"
                 />
 

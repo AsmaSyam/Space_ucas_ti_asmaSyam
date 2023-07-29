@@ -48,8 +48,6 @@ public class MeetingRoomActivity extends AppCompatActivity implements Listener{
 
 
 
-
-
         adapter = new  roomAdapter( new ArrayList<>(), getApplicationContext() , this);
         binding.recyclerViewRoom.setAdapter(adapter);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(MeetingRoomActivity.this, RecyclerView.VERTICAL,

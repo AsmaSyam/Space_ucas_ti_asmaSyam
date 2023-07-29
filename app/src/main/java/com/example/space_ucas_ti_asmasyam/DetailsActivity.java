@@ -14,6 +14,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.space_ucas_ti_asmasyam.databinding.ActivityDetailsBinding;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 import java.text.SimpleDateFormat;
@@ -30,6 +31,14 @@ public class DetailsActivity extends AppCompatActivity {
 
     Calendar calendar ;
 
+    String date ;
+
+    String startTime;
+
+    String endTime;
+
+    String roomNameId ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,23 +47,8 @@ public class DetailsActivity extends AppCompatActivity {
 
 
 
-//        binding.buttonCheck.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Log.d("add", "");
-//
-//                Bookable_class bookableClass = new Bookable_class("id" , "number" , "yes" ,"bookable_id" ,
-//                        "parent_id" , "user_id" , "first_name" , "last_name" , "" , "" , "" ,
-//                        "" , "" , "" ,"" , "" , " 6th Floor" , "Training Lab");
-//
-//                firestore.collection("Room").document("Training Lab2").set(roomClass);
-//
-//            }
-//        });
-
-
         calendar = Calendar.getInstance();
+
 
         Intent intent = getIntent();
         String name  = intent.getStringExtra("name");
@@ -67,6 +61,8 @@ public class DetailsActivity extends AppCompatActivity {
         binding.nameRoomId.setText(name);
         binding.location2Id.setText(location);
 
+        roomNameId = binding.nameRoomId.getText().toString();
+
 
         binding.calenderId.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -74,7 +70,7 @@ public class DetailsActivity extends AppCompatActivity {
                 getDate();
 
                 Toast.makeText(DetailsActivity.this,  day + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
-
+                 date = day + "/" + month + "/" + year ;
 
             }
         });
@@ -98,7 +94,12 @@ public class DetailsActivity extends AppCompatActivity {
         binding.buttonCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext() , BookingConfirmationActivity.class));
+                Intent intent1 = new Intent(getApplicationContext() , BookingConfirmationActivity.class);
+                intent1.putExtra("date" , date);
+                intent1.putExtra("startTime" , startTime);
+                intent1.putExtra("endTime" , endTime);
+                intent1.putExtra("roomNameId" , roomNameId);
+                startActivity(intent1);
             }
         });
 
@@ -123,7 +124,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                         binding.textStartTime.setText(DateFormat.format("hh:mm aa" , calendar));
                         Toast.makeText(DetailsActivity.this, DateFormat.format("hh:mm aa" , calendar), Toast.LENGTH_SHORT).show();
-
+                          startTime = (String) DateFormat.format("hh:mm aa" , calendar);
                     }
                 }, 12 , 0 , false
         );
@@ -153,6 +154,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                         binding.textEndTime.setText(DateFormat.format("hh:mm aa" , calendar));
                         Toast.makeText(DetailsActivity.this, DateFormat.format("hh:mm aa" , calendar), Toast.LENGTH_SHORT).show();
+                        endTime = (String) DateFormat.format("hh:mm aa" , calendar);
 
                     }
                 }, 12 , 0 , false
