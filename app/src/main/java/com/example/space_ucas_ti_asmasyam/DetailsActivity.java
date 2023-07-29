@@ -95,6 +95,12 @@ public class DetailsActivity extends AppCompatActivity {
         });
 
 
+        binding.buttonCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext() , BookingConfirmationActivity.class));
+            }
+        });
 
     }
 
