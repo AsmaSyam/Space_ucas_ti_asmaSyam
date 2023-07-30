@@ -7,12 +7,19 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.space_ucas_ti_asmasyam.databinding.ActivityDetailsBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 import java.text.SimpleDateFormat;
@@ -32,6 +39,8 @@ public class DetailsActivity extends AppCompatActivity {
     String endTime;
     String roomNameId ;
     String people ;
+    FirebaseFirestore firestore ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +51,8 @@ public class DetailsActivity extends AppCompatActivity {
 
 
         calendar = Calendar.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+
 
 
         Intent intent = getIntent();
@@ -69,8 +80,6 @@ public class DetailsActivity extends AppCompatActivity {
 
             }
         });
-
-
         binding.linearStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,10 +94,34 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+//        firestore.collection("Booking").get()
+//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                if (task.isSuccessful()) {
+//
+//                                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                                        Bookable_class bookableClass1 = document.toObject(Bookable_class.class);
+//                                        bookableClass1.getDate()
+//                                    }
+//
+//                                } else {
+//                                    Log.d("TAG", "onComplete: " + task.getException().getMessage());
+//                                }
+//
+//                            }
+//                            }
+//                        });
+
 
         binding.buttonCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+//                if (date == ){
+//
+//                }
+
                 Intent intent1 = new Intent(getApplicationContext() , BookingConfirmationActivity.class);
                 intent1.putExtra("date" , date);
                 intent1.putExtra("startTime" , startTime);
