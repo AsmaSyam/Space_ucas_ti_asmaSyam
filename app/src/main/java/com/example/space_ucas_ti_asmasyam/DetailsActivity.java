@@ -94,24 +94,24 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
-//        firestore.collection("Booking").get()
-//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                if (task.isSuccessful()) {
-//
-//                                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                                        Bookable_class bookableClass1 = document.toObject(Bookable_class.class);
-//                                        bookableClass1.getDate()
-//                                    }
-//
-//                                } else {
-//                                    Log.d("TAG", "onComplete: " + task.getException().getMessage());
-//                                }
-//
-//                            }
-//                            }
-//                        });
+        firestore.collection("Booking").get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        Bookable_class bookableClass1 = document.toObject(Bookable_class.class);
+
+                                    }
+
+                                } else {
+                                    Log.d("TAG", "onComplete: " + task.getException().getMessage());
+                                }
+
+                            }
+
+                        });
 
 
         binding.buttonCheck.setOnClickListener(new View.OnClickListener() {
