@@ -20,6 +20,8 @@ public class Bookable_class {
     String payment_status ;
     String title ;
 
+    String documentId ;
+
 
     public Bookable_class(){
 
@@ -28,6 +30,8 @@ public class Bookable_class {
     public Bookable_class(String first_name, String last_name, String email, String phone_number,
                           String start_time, String end_time, String duration, String timezone,
                           String rrule, String until, String people, String fees, String currency,
+
+
                           String status, String review_sent_at,
                           String reviewed_at, String payment_status, String title) {
 
@@ -51,6 +55,13 @@ public class Bookable_class {
         this.title = title;
     }
 
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
 
     public String getFirst_name() {
         return first_name;

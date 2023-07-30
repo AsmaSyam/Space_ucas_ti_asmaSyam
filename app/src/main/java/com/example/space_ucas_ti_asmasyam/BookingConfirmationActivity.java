@@ -1,5 +1,6 @@
 package com.example.space_ucas_ti_asmasyam;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,7 +10,14 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.space_ucas_ti_asmasyam.databinding.ActivityBookingConfirmationBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookingConfirmationActivity extends AppCompatActivity {
 
@@ -42,6 +50,25 @@ public class BookingConfirmationActivity extends AppCompatActivity {
 //        int duration = Integer.parseInt(endTime) - Integer.parseInt(startTime);
 //        binding.duration.setText(String.valueOf(duration));
 
+        firestore.collection("Booking")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        if (task.isSuccessful()) {
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Bookable_class bookableClass1 = document.toObject(Bookable_class.class);
+                                bookableClass1.setDocumentId(document.getId());
+                            }
+
+                        } else {
+                            Log.d("TAG", "onComplete: " + task.getException().getMessage());
+                        }
+                    }
+                });
+
         binding.buttonCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,11 +81,21 @@ public class BookingConfirmationActivity extends AppCompatActivity {
                 String phone = binding.editPhoneNumber.getText().toString();
                 String duration = binding.duration.getText().toString();
 
+                String notes = binding.editNotes.getText().toString();
+
                 Bookable_class bookableClass = new Bookable_class(firstName , lastName , email , phone , startTime ,
                         endTime , duration , "" ,"" , "" , people , "" , ""
                         , "booked up" , "" , "" , "" ,""  );
 
                 firestore.collection("Booking").document("booking1").set(bookableClass);
+
+
+
+                Status_class status_class = new Status_class(bookableClass.getDocumentId() , "booked up" , notes);
+
+                firestore.collection("Status").document("status")
+                        .collection("myStatus").document(bookableClass.getDocumentId()).set(status_class);
+
 
                 Toast.makeText(BookingConfirmationActivity.this, "Confirm and book", Toast.LENGTH_SHORT).show();
 

@@ -7,14 +7,12 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.space_ucas_ti_asmasyam.databinding.ActivityDetailsBinding;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 
 import java.text.SimpleDateFormat;
@@ -28,15 +26,10 @@ public class DetailsActivity extends AppCompatActivity {
     ActivityDetailsBinding binding ;
 
     int t1Hour, t1Minute ;
-
     Calendar calendar ;
-
     String date ;
-
     String startTime;
-
     String endTime;
-
     String roomNameId ;
     String people ;
 
