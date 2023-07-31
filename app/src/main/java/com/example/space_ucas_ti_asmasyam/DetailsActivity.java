@@ -37,6 +37,9 @@ public class DetailsActivity extends AppCompatActivity {
     String date ;
     String startTime;
     String endTime;
+    String booking_date ;
+    String booking_start_time ;
+    String booking_end_time  ;
     String roomNameId ;
     String people ;
     FirebaseFirestore firestore ;
@@ -102,7 +105,9 @@ public class DetailsActivity extends AppCompatActivity {
 
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         Bookable_class bookableClass1 = document.toObject(Bookable_class.class);
-
+                                        booking_date = bookableClass1.getDate();
+                                        booking_start_time = bookableClass1.getStart_time();
+                                        booking_end_time = bookableClass1.getEnd_time();
                                     }
 
                                 } else {
@@ -118,17 +123,29 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//                if (date == ){
-//
-//                }
+                if (date != null && startTime != null && endTime != null){
 
-                Intent intent1 = new Intent(getApplicationContext() , BookingConfirmationActivity.class);
-                intent1.putExtra("date" , date);
-                intent1.putExtra("startTime" , startTime);
-                intent1.putExtra("endTime" , endTime);
-                intent1.putExtra("roomNameId" , roomNameId);
-                intent1.putExtra("people" , people);
-                startActivity(intent1);
+                    if (date.equals(booking_date) && startTime.equals(booking_start_time) && endTime.equals(booking_end_time) ){
+                        Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
+                    } else if (date.equals(booking_date) && startTime.equals(booking_start_time) || endTime.equals(booking_end_time)) {
+                        Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
+                    }else {
+
+                        Intent intent1 = new Intent(getApplicationContext() , BookingConfirmationActivity.class);
+                        intent1.putExtra("date" , date);
+                        intent1.putExtra("startTime" , startTime);
+                        intent1.putExtra("endTime" , endTime);
+                        intent1.putExtra("roomNameId" , roomNameId);
+                        intent1.putExtra("people" , people);
+                        startActivity(intent1);
+
+                    }
+
+                }else {
+                    Toast.makeText(DetailsActivity.this, "select the date and time you want", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 

@@ -68,7 +68,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
                     }
                 });
 
-        binding.buttonCheck.setOnClickListener(new View.OnClickListener() {
+        binding.buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -79,11 +79,12 @@ public class BookingConfirmationActivity extends AppCompatActivity {
                 String email = binding.editEmailAddress.getText().toString();
                 String phone = binding.editPhoneNumber.getText().toString();
                 String duration = binding.duration.getText().toString();
+                String date = binding.dateText.getText().toString();
 
                 String notes = binding.editNotes.getText().toString();
 
                 Bookable_class bookableClass = new Bookable_class(firstName , lastName , email , phone , startTime ,
-                        endTime , duration , "" ,"" , "" , people , "" , ""
+                        endTime ,date , duration , "" ,"" , "" , people , "" , ""
                         , "booked up" , "" , "" , "" ,""  );
 
                 firestore.collection("Booking").document("booking1").set(bookableClass);

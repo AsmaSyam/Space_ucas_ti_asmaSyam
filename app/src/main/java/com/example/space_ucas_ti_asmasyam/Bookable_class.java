@@ -7,6 +7,7 @@ public class Bookable_class {
     String phone_number ;
     String start_time ;
     String end_time ;
+    String date ;
     String duration ;
     String timezone ;
     String rrule ;
@@ -28,7 +29,7 @@ public class Bookable_class {
     }
 
     public Bookable_class(String first_name, String last_name, String email, String phone_number,
-                          String start_time, String end_time, String duration, String timezone,
+                          String start_time, String end_time, String date , String duration, String timezone,
                           String rrule, String until, String people, String fees, String currency,
 
 
@@ -41,6 +42,7 @@ public class Bookable_class {
         this.phone_number = phone_number;
         this.start_time = start_time;
         this.end_time = end_time;
+        this.date = date;
         this.duration = duration;
         this.timezone = timezone;
         this.rrule = rrule;
@@ -77,6 +79,14 @@ public class Bookable_class {
 
     public void setLast_name(String last_name) {
         this.last_name = last_name;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getEmail() {
