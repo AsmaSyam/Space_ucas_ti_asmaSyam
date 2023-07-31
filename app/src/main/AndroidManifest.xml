@@ -13,6 +13,15 @@
         android:theme="@style/Theme.Space_ucas_ti_asmaSyam"
         tools:targetApi="31">
         <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChooseLoginOrRegActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".BookingConfirmationActivity"
             android:exported="false" />
         <activity
@@ -26,16 +35,16 @@
         </activity>
         <activity
             android:name=".DetailsActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".TrainingLabActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".MeetingRoomActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>
