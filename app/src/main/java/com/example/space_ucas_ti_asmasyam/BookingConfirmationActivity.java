@@ -22,6 +22,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
 
     ActivityBookingConfirmationBinding binding ;
     FirebaseFirestore firestore ;
+    Bookable_class bookableClass1 ;
 
 
     @Override
@@ -58,8 +59,9 @@ public class BookingConfirmationActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Bookable_class bookableClass1 = document.toObject(Bookable_class.class);
+                                bookableClass1 = document.toObject(Bookable_class.class);
                                 bookableClass1.setDocumentId(document.getId());
+                                Log.d("documentId", "onComplete: " + document.getId());
                             }
 
                         } else {
@@ -91,10 +93,10 @@ public class BookingConfirmationActivity extends AppCompatActivity {
 
 
 
-                Status_class status_class = new Status_class(bookableClass.getDocumentId() , "booked up" , notes);
+                Status_class status_class = new Status_class(bookableClass1.getDocumentId() , "booked up" , notes);
 
                 firestore.collection("Status").document("status")
-                        .collection("myStatus").document(bookableClass.getDocumentId()).set(status_class);
+                        .collection("myStatus").document(bookableClass1.getDocumentId()).set(status_class);
 
 
                 Toast.makeText(BookingConfirmationActivity.this, "Confirm and book", Toast.LENGTH_SHORT).show();
