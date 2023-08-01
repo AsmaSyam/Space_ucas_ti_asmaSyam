@@ -22,8 +22,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 
@@ -37,9 +39,11 @@ public class DetailsActivity extends AppCompatActivity {
     String date ;
     String startTime;
     String endTime;
+    Date getTime ;
+    Date getEndTime ;
     String booking_date ;
-    String booking_start_time ;
-    String booking_end_time  ;
+    Date booking_start_time ;
+    Date booking_end_time  ;
     String roomNameId ;
     String people ;
     FirebaseFirestore firestore ;
@@ -106,8 +110,19 @@ public class DetailsActivity extends AppCompatActivity {
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         Bookable_class bookableClass1 = document.toObject(Bookable_class.class);
                                         booking_date = bookableClass1.getDate();
-                                        booking_start_time = bookableClass1.getStart_time();
-                                        booking_end_time = bookableClass1.getEnd_time();
+                                        String pattern = "HH:mm";
+                                        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+                                        try {
+                                             booking_start_time = sdf.parse(bookableClass1.getStart_time());
+                                        } catch (ParseException e) {
+                                            throw new RuntimeException(e);
+                                        }
+
+                                        try {
+                                            booking_end_time = sdf.parse(bookableClass1.getEnd_time());
+                                        } catch (ParseException e) {
+                                            throw new RuntimeException(e);
+                                        }
                                     }
 
                                 } else {
@@ -128,11 +143,21 @@ public class DetailsActivity extends AppCompatActivity {
                     // هنا في اليوم نفسه بمشي صح بأنه ما بيختار نفس الوقت
                     //ولكن لما اختار يوم تاني وبنفس الوقت بقلي محجوز
                     // فالي بدي اعمله اني اعدل على جزئية الفحص الخاصة بالوقت
-                    if (date.equals(booking_date) && startTime.equals(booking_start_time) && endTime.equals(booking_end_time) ){
+                    if (date.equals(booking_date) && getTime.equals(booking_start_time) && getEndTime.equals(booking_end_time) ){
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
-                    } else if (date.equals(booking_date) && startTime.equals(booking_start_time) || endTime.equals(booking_end_time)) {
+                    } else if (date.equals(booking_date) && booking_start_time.before(getTime)
+                            || booking_end_time.after(getEndTime) ) {
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else if (date.equals(booking_date) && getTime != booking_start_time && getEndTime != booking_end_time) {
+
+                        Intent intent1 = new Intent(getApplicationContext() , BookingConfirmationActivity.class);
+                        intent1.putExtra("date" , date);
+                        intent1.putExtra("startTime" , startTime);
+                        intent1.putExtra("endTime" , endTime);
+                        intent1.putExtra("roomNameId" , roomNameId);
+                        intent1.putExtra("people" , people);
+                        startActivity(intent1);
+                    } else {
 
                         Intent intent1 = new Intent(getApplicationContext() , BookingConfirmationActivity.class);
                         intent1.putExtra("date" , date);
@@ -171,9 +196,20 @@ public class DetailsActivity extends AppCompatActivity {
 
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
 
+
+
                         binding.textStartTime.setText(DateFormat.format("hh:mm aa" , calendar));
                         Toast.makeText(DetailsActivity.this, DateFormat.format("hh:mm aa" , calendar), Toast.LENGTH_SHORT).show();
-                          startTime = (String) DateFormat.format("hh:mm aa" , calendar);
+                          startTime = (String) DateFormat.format("hh:mm" , calendar);
+
+                        String pattern = "hh:mm";
+                        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+                        try {
+                            getTime = sdf.parse(DateFormat.format("hh:mm aa" , calendar).toString());
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
+
                     }
                 }, 12 , 0 , false
         );
@@ -201,9 +237,19 @@ public class DetailsActivity extends AppCompatActivity {
 
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
 
+
+
                         binding.textEndTime.setText(DateFormat.format("hh:mm aa" , calendar));
                         Toast.makeText(DetailsActivity.this, DateFormat.format("hh:mm aa" , calendar), Toast.LENGTH_SHORT).show();
                         endTime = (String) DateFormat.format("hh:mm aa" , calendar);
+
+                        String pattern = "HH:mm";
+                        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+                        try {
+                            getEndTime = sdf.parse(DateFormat.format("hh:mm aa" , calendar).toString());
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
 
                     }
                 }, 12 , 0 , false
