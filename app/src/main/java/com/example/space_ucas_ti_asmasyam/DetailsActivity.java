@@ -56,18 +56,16 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-
         calendar = Calendar.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
 
-
         Intent intent = getIntent();
-        String name  = intent.getStringExtra("name");
-        String capacity  = intent.getStringExtra("capacity");
-        String location  = intent.getStringExtra("location");
-        String minimum_term  = intent.getStringExtra("minimum_term");
-        String type  = intent.getStringExtra("type");
+        String name = intent.getStringExtra("name");
+        String capacity = intent.getStringExtra("capacity");
+        String location = intent.getStringExtra("location");
+        String minimum_term = intent.getStringExtra("minimum_term");
+        String type = intent.getStringExtra("type");
 
 
         binding.nameRoomId.setText(name);
@@ -82,8 +80,8 @@ public class DetailsActivity extends AppCompatActivity {
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
                 getDate();
 
-                Toast.makeText(DetailsActivity.this,  day + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
-                 date = day + "/" + month + "/" + year ;
+                Toast.makeText(DetailsActivity.this, day + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
+                date = day + "/" + month + "/" + year;
 
             }
         });
@@ -102,79 +100,118 @@ public class DetailsActivity extends AppCompatActivity {
         });
 
         firestore.collection("Booking").get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
 
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        Bookable_class bookableClass1 = document.toObject(Bookable_class.class);
-                                        booking_date = bookableClass1.getDate();
-                                        String pattern = "HH:mm";
-                                        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-                                        try {
-                                             booking_start_time = sdf.parse(bookableClass1.getStart_time());
-                                        } catch (ParseException e) {
-                                            throw new RuntimeException(e);
-                                        }
-
-                                        try {
-                                            booking_end_time = sdf.parse(bookableClass1.getEnd_time());
-                                        } catch (ParseException e) {
-                                            throw new RuntimeException(e);
-                                        }
-                                    }
-
-                                } else {
-                                    Log.d("TAG", "onComplete: " + task.getException().getMessage());
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Bookable_class bookableClass1 = document.toObject(Bookable_class.class);
+                                booking_date = bookableClass1.getDate();
+                                String pattern = "HH:mm";
+                                SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+                                try {
+                                    booking_start_time = sdf.parse(bookableClass1.getStart_time());
+                                } catch (ParseException e) {
+                                    throw new RuntimeException(e);
                                 }
 
+                                try {
+                                    booking_end_time = sdf.parse(bookableClass1.getEnd_time());
+                                } catch (ParseException e) {
+                                    throw new RuntimeException(e);
+                                }
                             }
 
-                        });
+                        } else {
+                            Log.d("TAG", "onComplete: " + task.getException().getMessage());
+                        }
+
+                    }
+
+                });
 
 
         binding.buttonCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (date != null && startTime != null && endTime != null){
+                if (date != null && startTime != null && endTime != null) {
 
                     // هنا في اليوم نفسه بمشي صح بأنه ما بيختار نفس الوقت
                     //ولكن لما اختار يوم تاني وبنفس الوقت بقلي محجوز
                     // فالي بدي اعمله اني اعدل على جزئية الفحص الخاصة بالوقت
-                    if (date.equals(booking_date) && getTime.equals(booking_start_time) && getEndTime.equals(booking_end_time) ){
+                    if (date.equals(booking_date) && getTime.equals(booking_start_time) && getEndTime.equals(booking_end_time)) {
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
-                    } else if (date.equals(booking_date) && booking_start_time.before(getTime)
-                            || booking_end_time.after(getEndTime) ) {
-                        Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
-                    } else if (date.equals(booking_date) && getTime != booking_start_time && getEndTime != booking_end_time) {
+                    }
+                    else if ( ! date.equals(booking_date)) {
 
-                        Intent intent1 = new Intent(getApplicationContext() , BookingConfirmationActivity.class);
-                        intent1.putExtra("date" , date);
-                        intent1.putExtra("startTime" , startTime);
-                        intent1.putExtra("endTime" , endTime);
-                        intent1.putExtra("roomNameId" , roomNameId);
-                        intent1.putExtra("people" , people);
+                        Intent intent1 = new Intent(getApplicationContext(), BookingConfirmationActivity.class);
+                        intent1.putExtra("date", date);
+                        intent1.putExtra("startTime", startTime);
+                        intent1.putExtra("endTime", endTime);
+                        intent1.putExtra("roomNameId", roomNameId);
+                        intent1.putExtra("people", people);
+                        startActivity(intent1);
+                    }// hello asma
+                    else if (date.equals(booking_date) && booking_start_time.after(getTime)
+                            && booking_end_time.before(getEndTime)) {
+                        Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (date.equals(booking_date) && booking_start_time.after(getTime)
+                            && booking_end_time.equals(getEndTime)) {
+                        Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (date.equals(booking_date) && booking_start_time.before(getTime)
+                            && booking_end_time.after(getEndTime)) {
+                        Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (date.equals(booking_date) && booking_start_time.after(getTime)
+                            && booking_end_time.after(getEndTime) && getEndTime.after(booking_start_time)) {
+                        Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (date.equals(booking_date) && booking_start_time.before(getTime)
+                            && booking_end_time.before(getEndTime)) {
+                        Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (date.equals(booking_date) && booking_start_time.before(getTime)
+                            && booking_end_time.equals(getEndTime)) {
+                        Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
+                    } else if (date.equals(booking_date) && booking_start_time.equals(getTime)
+                            && booking_end_time.after(getEndTime)) {
+                        Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (date.equals(booking_date) && booking_start_time.equals(getTime)
+                            && booking_end_time.before(getEndTime)) {
+                        Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (date.equals(booking_date) && getTime != booking_start_time && getEndTime != booking_end_time) {
+
+                        Intent intent1 = new Intent(getApplicationContext(), BookingConfirmationActivity.class);
+                        intent1.putExtra("date", date);
+                        intent1.putExtra("startTime", startTime);
+                        intent1.putExtra("endTime", endTime);
+                        intent1.putExtra("roomNameId", roomNameId);
+                        intent1.putExtra("people", people);
                         startActivity(intent1);
                     } else {
 
-                        Intent intent1 = new Intent(getApplicationContext() , BookingConfirmationActivity.class);
-                        intent1.putExtra("date" , date);
-                        intent1.putExtra("startTime" , startTime);
-                        intent1.putExtra("endTime" , endTime);
-                        intent1.putExtra("roomNameId" , roomNameId);
-                        intent1.putExtra("people" , people);
+                        Intent intent1 = new Intent(getApplicationContext(), BookingConfirmationActivity.class);
+                        intent1.putExtra("date", date);
+                        intent1.putExtra("startTime", startTime);
+                        intent1.putExtra("endTime", endTime);
+                        intent1.putExtra("roomNameId", roomNameId);
+                        intent1.putExtra("people", people);
                         startActivity(intent1);
 
                     }
-
-                }else {
+                } else {
                     Toast.makeText(DetailsActivity.this, "select the date and time you want", Toast.LENGTH_SHORT).show();
                 }
 
 
             }
+
         });
 
     }
