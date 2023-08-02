@@ -10,6 +10,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
+import android.widget.ListView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -24,8 +25,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -33,6 +36,7 @@ public class DetailsActivity extends AppCompatActivity {
 
 
     ActivityDetailsBinding binding ;
+
 
     int t1Hour, t1Minute ;
     Calendar calendar ;
@@ -44,6 +48,8 @@ public class DetailsActivity extends AppCompatActivity {
     String booking_date ;
     Date booking_start_time ;
     Date booking_end_time  ;
+    String booking_start_time_list ;
+    String booking_end_time_list ;
     String roomNameId ;
     String people ;
     FirebaseFirestore firestore ;
@@ -74,6 +80,10 @@ public class DetailsActivity extends AppCompatActivity {
         roomNameId = binding.nameRoomId.getText().toString();
         people = binding.textPeople.getText().toString();
 
+        // disable dates before today
+        Calendar today = Calendar.getInstance();
+        long now = today.getTimeInMillis();
+        binding.calenderId.setMinDate(now);
 
         binding.calenderId.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -105,19 +115,32 @@ public class DetailsActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
 
+                            List<Bookable_class> list = new ArrayList<>();
+
+
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Bookable_class bookableClass1 = document.toObject(Bookable_class.class);
-                                booking_date = bookableClass1.getDate();
+                                list.add(bookableClass1);
+
+                                for (int i=0; i<list.size(); i++) {
+                                    System.out.println(list.get(i));
+                                    booking_date = list.get(i).getDate();
+                                    booking_start_time_list = list.get(i).getStart_time();
+                                    booking_end_time_list = list.get(i).getEnd_time();
+                                    Log.d("sizeList", "onComplete: " + list.size());
+
+                                }
+
                                 String pattern = "HH:mm";
                                 SimpleDateFormat sdf = new SimpleDateFormat(pattern);
                                 try {
-                                    booking_start_time = sdf.parse(bookableClass1.getStart_time());
+                                    booking_start_time = sdf.parse(booking_start_time_list);
                                 } catch (ParseException e) {
                                     throw new RuntimeException(e);
                                 }
 
                                 try {
-                                    booking_end_time = sdf.parse(bookableClass1.getEnd_time());
+                                    booking_end_time = sdf.parse(booking_end_time_list);
                                 } catch (ParseException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -171,13 +194,14 @@ public class DetailsActivity extends AppCompatActivity {
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
                     }
                     else if (date.equals(booking_date) && booking_start_time.before(getTime)
-                            && booking_end_time.before(getEndTime)) {
+                            && booking_end_time.before(getEndTime) && getTime.before(booking_end_time)) {
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
                     }
                     else if (date.equals(booking_date) && booking_start_time.before(getTime)
                             && booking_end_time.equals(getEndTime)) {
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
-                    } else if (date.equals(booking_date) && booking_start_time.equals(getTime)
+                    }
+                    else if (date.equals(booking_date) && booking_start_time.equals(getTime)
                             && booking_end_time.after(getEndTime)) {
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
                     }

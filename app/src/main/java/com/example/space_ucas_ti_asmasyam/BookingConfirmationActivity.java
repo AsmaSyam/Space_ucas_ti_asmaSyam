@@ -89,7 +89,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
                         endTime ,date , duration , "" ,"" , "" , people , "" , ""
                         , "booked up" , "" , "" , "" ,""  );
 
-                firestore.collection("Booking").document("booking1").set(bookableClass);
+                firestore.collection("Booking").document("booking2").set(bookableClass);
 
 
 
