@@ -10,14 +10,12 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
-import android.widget.ListView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.space_ucas_ti_asmasyam.databinding.ActivityDetailsBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -45,6 +43,7 @@ public class DetailsActivity extends AppCompatActivity {
     String endTime;
     Date getTime ;
     Date getEndTime ;
+    long duration ;
     String booking_date ;
     Date booking_start_time ;
     Date booking_end_time  ;
@@ -175,6 +174,7 @@ public class DetailsActivity extends AppCompatActivity {
                         intent1.putExtra("endTime", endTime);
                         intent1.putExtra("roomNameId", roomNameId);
                         intent1.putExtra("people", people);
+                        intent1.putExtra("duration", duration);
                         startActivity(intent1);
                     }// hello asma
                     else if (date.equals(booking_date) && booking_start_time.after(getTime)
@@ -217,6 +217,7 @@ public class DetailsActivity extends AppCompatActivity {
                         intent1.putExtra("endTime", endTime);
                         intent1.putExtra("roomNameId", roomNameId);
                         intent1.putExtra("people", people);
+                        intent1.putExtra("duration", duration);
                         startActivity(intent1);
                     } else {
 
@@ -226,6 +227,7 @@ public class DetailsActivity extends AppCompatActivity {
                         intent1.putExtra("endTime", endTime);
                         intent1.putExtra("roomNameId", roomNameId);
                         intent1.putExtra("people", people);
+                        intent1.putExtra("duration", duration);
                         startActivity(intent1);
 
                     }
@@ -308,6 +310,7 @@ public class DetailsActivity extends AppCompatActivity {
                         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
                         try {
                             getEndTime = sdf.parse(DateFormat.format("hh:mm aa" , calendar).toString());
+                            duration = getEndTime.getTime() - getTime.getTime() ;
                         } catch (ParseException e) {
                             throw new RuntimeException(e);
                         }

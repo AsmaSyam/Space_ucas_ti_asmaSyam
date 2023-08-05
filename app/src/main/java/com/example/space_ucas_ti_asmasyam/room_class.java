@@ -21,6 +21,8 @@ public class room_class {
     String location ;
     String type ;
 
+    String documentId ;
+
 
     public room_class() {
 
@@ -49,6 +51,14 @@ public class room_class {
         this.cancel_until = cancel_until;
         this.location = location;
         this.type = type;
+    }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 
     public String getName() {

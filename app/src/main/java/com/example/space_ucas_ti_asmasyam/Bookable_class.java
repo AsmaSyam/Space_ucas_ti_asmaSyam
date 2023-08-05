@@ -1,6 +1,8 @@
 package com.example.space_ucas_ti_asmasyam;
 
 public class Bookable_class {
+
+    String room_id ;
     String first_name ;
     String last_name ;
     String email ;
@@ -28,7 +30,7 @@ public class Bookable_class {
 
     }
 
-    public Bookable_class(String first_name, String last_name, String email, String phone_number,
+    public Bookable_class(String room_id ,String first_name, String last_name, String email, String phone_number,
                           String start_time, String end_time, String date , String duration, String timezone,
                           String rrule, String until, String people, String fees, String currency,
 
@@ -36,6 +38,7 @@ public class Bookable_class {
                           String status, String review_sent_at,
                           String reviewed_at, String payment_status, String title) {
 
+        this.room_id = room_id ;
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
@@ -55,6 +58,14 @@ public class Bookable_class {
         this.reviewed_at = reviewed_at;
         this.payment_status = payment_status;
         this.title = title;
+    }
+
+    public String getRoom_id() {
+        return room_id;
+    }
+
+    public void setRoom_id(String room_id) {
+        this.room_id = room_id;
     }
 
     public String getDocumentId() {
