@@ -47,7 +47,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
         binding.startTime.setText(startTime);
         binding.endTime.setText(endTime);
         binding.roomNameId.setText(roomNameId);
-        binding.duration.setText(String.valueOf(duration));
+        binding.duration.setText(duration);
 
 
 //        int duration = Integer.parseInt(endTime) - Integer.parseInt(startTime);

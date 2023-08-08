@@ -43,7 +43,7 @@ public class DetailsActivity extends AppCompatActivity {
     String endTime;
     Date getTime ;
     Date getEndTime ;
-    long duration ;
+    String duration ;
     String booking_date ;
     Date booking_start_time ;
     Date booking_end_time  ;
@@ -310,7 +310,7 @@ public class DetailsActivity extends AppCompatActivity {
                         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
                         try {
                             getEndTime = sdf.parse(DateFormat.format("hh:mm aa" , calendar).toString());
-                            duration = getEndTime.getTime() - getTime.getTime() ;
+                            duration = String.valueOf(getEndTime.getTime() - getTime.getTime());
                         } catch (ParseException e) {
                             throw new RuntimeException(e);
                         }
