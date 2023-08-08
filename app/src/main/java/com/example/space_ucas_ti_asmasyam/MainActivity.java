@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -92,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                 );
                 dpd.show(getSupportFragmentManager(), "Datepickerdialog");
+//                dpd.setMinDate(new GregorianCalendar(2000, 5, 23));
+
             }
         });
 
