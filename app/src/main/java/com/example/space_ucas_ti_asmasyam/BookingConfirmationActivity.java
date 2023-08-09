@@ -123,8 +123,9 @@ public class BookingConfirmationActivity extends AppCompatActivity {
 
 
                 Toast.makeText(BookingConfirmationActivity.this, "Confirm and book", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext() , MeetingRoomActivity.class));
+                startActivity(new Intent(getApplicationContext() , MainActivity.class));
                 finish();
+
 
             }
         });

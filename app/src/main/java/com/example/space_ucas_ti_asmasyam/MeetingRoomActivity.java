@@ -31,6 +31,7 @@ public class MeetingRoomActivity extends AppCompatActivity implements Listener{
 
     room_class newsClass ;
     FirebaseStorage firebaseStorage ;
+    String type ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,9 @@ public class MeetingRoomActivity extends AppCompatActivity implements Listener{
 
         binding.progressBar.setVisibility(View.VISIBLE);
 
+        Intent intent = getIntent();
+        type = intent.getStringExtra("type");
+
 
 
 
@@ -56,7 +60,7 @@ public class MeetingRoomActivity extends AppCompatActivity implements Listener{
 
 
 
-        firestore.collection("Room").whereEqualTo("type", "Meeting Room")
+        firestore.collection("Room").whereEqualTo("type", type)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

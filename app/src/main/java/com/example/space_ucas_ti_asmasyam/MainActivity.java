@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,15 +17,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding ;
-    FirebaseFirestore firestore ;
+    ActivityMainBinding binding;
+    FirebaseFirestore firestore;
 
-    String type ;
+    String type="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         firestore = FirebaseFirestore.getInstance();
 
-
+        getData();
 
 
 //        binding.buttonFindSpace.setOnClickListener(new View.OnClickListener() {
@@ -54,11 +56,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //        });
 
 
-        String[] filter = getResources().getStringArray(R.array.Select_space_type);
-        ArrayAdapter adapter = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item , filter);
-        adapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
-
-        binding.filterSpinner.setAdapter(adapter);
+//        String[] filter = getResources().getStringArray(R.array.Select_space_type);
+//        ArrayAdapter adapter = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item
+//                , filter);
+//        adapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
+//
+//        binding.filterSpinner.setAdapter(adapter);
 
 //        binding.filterSpinner.setOnItemClickListener((AdapterView.OnItemClickListener) this);
 
@@ -99,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
 
-
         binding.buttonFindSpace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,21 +110,44 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                    startActivity(new Intent(MainActivity.this , MeetingRoomActivity.class));
 //                }
 
-                startActivity(new Intent(MainActivity.this , MeetingRoomActivity.class));
+                if (type.equals("Select space type")) {
+                    Toast.makeText(MainActivity.this, "Select the type of room", Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(MainActivity.this , MeetingRoomActivity.class);
+                    intent.putExtra("type" , type) ;
+                    startActivity(intent);
+                    finish();
+                }
 
             }
         });
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-         type = adapterView.getItemAtPosition(i).toString();
-        Toast.makeText(this, type, Toast.LENGTH_SHORT).show();
-    }
+    private void getData() {
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+                List<String> list = new ArrayList<>();
+                list.add("Select space type");
+                list.add("Meeting Room");
+                list.add("Training Lab");
+                list.add("Work Space");
+                list.add("Office");
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(getBaseContext(), R.layout.custom_spinner, list);
+
+                binding.filterSpinner.setAdapter(adapter);
+                binding.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        Log.e("dhjhbcd", list.get(i));
+                        type=list.get(i);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+
 
     }
 }
