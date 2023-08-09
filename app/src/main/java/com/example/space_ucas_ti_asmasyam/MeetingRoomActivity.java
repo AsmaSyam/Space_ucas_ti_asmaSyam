@@ -108,6 +108,6 @@ public class MeetingRoomActivity extends AppCompatActivity implements Listener{
         intent.putExtra("minimum_term" , minimum_term);
         intent.putExtra("type" , type);
         startActivity(intent);
-
+        finish();
     }
 }

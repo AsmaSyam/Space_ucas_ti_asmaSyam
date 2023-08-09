@@ -176,6 +176,8 @@ public class DetailsActivity extends AppCompatActivity {
                         intent1.putExtra("people", people);
                         intent1.putExtra("duration", duration);
                         startActivity(intent1);
+                        finish();
+
                     }// hello asma
                     else if (date.equals(booking_date) && booking_start_time.after(getTime)
                             && booking_end_time.before(getEndTime)) {
@@ -219,6 +221,7 @@ public class DetailsActivity extends AppCompatActivity {
                         intent1.putExtra("people", people);
                         intent1.putExtra("duration", duration);
                         startActivity(intent1);
+                        finish();
                     } else {
 
                         Intent intent1 = new Intent(getApplicationContext(), BookingConfirmationActivity.class);
@@ -229,6 +232,7 @@ public class DetailsActivity extends AppCompatActivity {
                         intent1.putExtra("people", people);
                         intent1.putExtra("duration", duration);
                         startActivity(intent1);
+                        finish();
 
                     }
                 } else {
