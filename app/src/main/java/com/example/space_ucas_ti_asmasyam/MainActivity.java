@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this , MeetingRoomActivity.class);
                     intent.putExtra("type" , type) ;
                     startActivity(intent);
-                    finish();
                 }
 
             }
