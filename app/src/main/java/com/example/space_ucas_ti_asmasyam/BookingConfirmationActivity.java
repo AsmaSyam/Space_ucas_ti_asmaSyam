@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -81,8 +82,8 @@ public class BookingConfirmationActivity extends AppCompatActivity {
 
                 Log.d("add", "");
 
-                String firstName = binding.firstText.getText().toString();
-                String lastName = binding.lastText.getText().toString();
+                String firstName = binding.editFirstName.getText().toString();
+                String lastName = binding.editLastName.getText().toString();
                 String email = binding.editEmailAddress.getText().toString();
                 String phone = binding.editPhoneNumber.getText().toString();
                 String duration = binding.duration.getText().toString();
@@ -96,30 +97,36 @@ public class BookingConfirmationActivity extends AppCompatActivity {
 
                 firestore.collection("Booking").document(roomClass.getDocumentId()).set(bookableClass);
 
-//                firestore.collection("Booking")
-//                        .get()
-//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//
-//                                if (task.isSuccessful()) {
-//
-//                                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                                        bookableClass1 = document.toObject(Bookable_class.class);
-//                                        bookableClass1.setDocumentId(document.getId());
-//                                        Log.d("documentId", "onComplete: " + document.getId());
-//                                    }
-//
-//                                } else {
-//                                    Log.d("TAG", "onComplete: " + task.getException().getMessage());
-//                                }
-//                            }
-//                        });
-//
-//                Status_class status_class = new Status_class(bookableClass1.getDocumentId() , "booked up" , notes);
-//
-//                firestore.collection("Status").document("status")
-//                        .collection("myStatus").document(bookableClass1.getDocumentId()).set(status_class);
+                new Handler().postDelayed(() -> {
+
+                    firestore.collection("Booking")
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                                    if (task.isSuccessful()) {
+
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            bookableClass1 = document.toObject(Bookable_class.class);
+                                            bookableClass1.setDocumentId(document.getId());
+                                            Log.d("documentId", "onComplete: " + document.getId());
+                                        }
+
+                                    } else {
+                                        Log.d("error booking", "onComplete: " + task.getException().getMessage());
+                                    }
+                                }
+                            });
+
+                } , 4000);
+
+
+
+                Status_class status_class = new Status_class(bookableClass1.getDocumentId() , "booked up" , notes);
+
+                firestore.collection("Status").document("status")
+                        .collection("myStatus").document(bookableClass1.getDocumentId()).set(status_class);
 
 
                 Toast.makeText(BookingConfirmationActivity.this, "Confirm and book", Toast.LENGTH_SHORT).show();
