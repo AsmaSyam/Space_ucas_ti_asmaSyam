@@ -108,6 +108,7 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+        //  بدي أحط في هاي الواجهة شرط على document
         firestore.collection("Booking").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
