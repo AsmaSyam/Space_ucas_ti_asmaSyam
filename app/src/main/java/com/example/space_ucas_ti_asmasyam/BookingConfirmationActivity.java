@@ -43,6 +43,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
         String roomNameId = intent.getStringExtra("roomNameId");
         String people = intent.getStringExtra("people");
         String duration = intent.getStringExtra("duration");
+        String name = intent.getStringExtra("name");
 
         binding.dateText.setText(date);
         binding.startTime.setText(startTime);
@@ -55,7 +56,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
 //        binding.duration.setText(String.valueOf(duration));
 
 
-        firestore.collection("Room")
+        firestore.collection("Room").whereEqualTo("name" ,name)
                         .get()
                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
