@@ -89,7 +89,7 @@ public class DetailsActivity extends AppCompatActivity {
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
                 getDate();
 
-                Toast.makeText(DetailsActivity.this, day + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(DetailsActivity.this, day + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
                 date = day + "/" + month + "/" + year;
 
             }
@@ -267,7 +267,7 @@ public class DetailsActivity extends AppCompatActivity {
 
 
                         binding.textStartTime.setText(DateFormat.format("hh:mm aa" , calendar));
-                        Toast.makeText(DetailsActivity.this, DateFormat.format("hh:mm aa" , calendar), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(DetailsActivity.this, DateFormat.format("hh:mm aa" , calendar), Toast.LENGTH_SHORT).show();
                           startTime = (String) DateFormat.format("hh:mm" , calendar);
 
                         String pattern = "hh:mm";
@@ -308,7 +308,7 @@ public class DetailsActivity extends AppCompatActivity {
 
 
                         binding.textEndTime.setText(DateFormat.format("hh:mm aa" , calendar));
-                        Toast.makeText(DetailsActivity.this, DateFormat.format("hh:mm aa" , calendar), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(DetailsActivity.this, DateFormat.format("hh:mm aa" , calendar), Toast.LENGTH_SHORT).show();
                         endTime = (String) DateFormat.format("hh:mm aa" , calendar);
 
                         String pattern = "HH:mm";

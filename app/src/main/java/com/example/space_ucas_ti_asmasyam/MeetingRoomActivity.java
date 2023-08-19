@@ -77,7 +77,7 @@ public class MeetingRoomActivity extends AppCompatActivity implements Listener{
                                  newsClass = document.toObject(room_class.class);
 
                                 list.add(newsClass);
-                                Toast.makeText(MeetingRoomActivity.this, task.getResult().toString(), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(MeetingRoomActivity.this, task.getResult().toString(), Toast.LENGTH_SHORT).show();
                                 binding.progressBar.setVisibility(View.GONE);
 
                             }
