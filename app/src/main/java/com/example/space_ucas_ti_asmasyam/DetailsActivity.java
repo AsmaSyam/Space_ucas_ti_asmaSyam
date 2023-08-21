@@ -128,6 +128,8 @@ public class DetailsActivity extends AppCompatActivity {
                                     booking_start_time_list = list.get(i).getStart_time();
                                     booking_end_time_list = list.get(i).getEnd_time();
                                     Log.d("sizeList", "onComplete: " + list.size());
+                                    Log.d("getDate", "onComplete: " + list.get(i).getDate());
+                                    Log.d("getStart_time", "onComplete: " + list.get(i).getStart_time());
 
                                 }
 
