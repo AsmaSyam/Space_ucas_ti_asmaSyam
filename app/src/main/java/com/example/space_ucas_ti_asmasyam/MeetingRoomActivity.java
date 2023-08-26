@@ -106,6 +106,8 @@ public class MeetingRoomActivity extends AppCompatActivity implements Listener{
         String type = roomClass.getType();
 
         Intent intent = new Intent(MeetingRoomActivity.this , DetailsActivity.class);
+        Log.d("BookingTestingStep2", "IsClickDetails: "+roomClass.getDocumentId());
+        intent.putExtra("roomId" , roomClass.getDocumentId());
         intent.putExtra("name" , name);
         intent.putExtra("capacity" , capacity);
         intent.putExtra("location" , location);

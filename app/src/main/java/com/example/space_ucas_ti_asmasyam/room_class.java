@@ -20,7 +20,6 @@ public class room_class {
     String cancel_until ;
     String location ;
     String type ;
-
     String documentId ;
 
 
