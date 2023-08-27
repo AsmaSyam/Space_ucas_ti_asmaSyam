@@ -169,7 +169,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                     // هنا في اليوم نفسه بمشي صح بأنه ما بيختار نفس الوقت
                     //ولكن لما اختار يوم تاني وبنفس الوقت بقلي محجوز
-                    // فالي بدي اعمله اني اعدل على جزئية الفحص الخاصة بالوقت
+                    // .فالي بدي اعمله اني اعدل على جزئية الفحص الخاصة بالوقت
                     Log.d("BookingTestingStep2", "onClick: "+roomNameId2 + ":"+ roomId);
                     if (date.equals(booking_date) && getTime.equals(booking_start_time) && getEndTime.equals(booking_end_time) && roomNameId2.equals(roomId)) {
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
