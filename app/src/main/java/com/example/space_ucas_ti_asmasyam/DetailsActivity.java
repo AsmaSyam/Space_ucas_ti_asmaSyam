@@ -175,7 +175,7 @@ public class DetailsActivity extends AppCompatActivity {
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
                         Log.d("BookingTesting", "onClick: 1");
                     }
-                    else if ( ! date.equals(booking_date)) {
+                    else if ( ! date.equals(booking_date) && roomNameId2.equals(roomId)) {
 
                         Intent intent1 = new Intent(getApplicationContext(), BookingConfirmationActivity.class);
                         intent1.putExtra("date", date);
@@ -189,54 +189,55 @@ public class DetailsActivity extends AppCompatActivity {
 
                     }// hello asma
                     else if (date.equals(booking_date) && booking_start_time.after(getTime)
-                            && booking_end_time.before(getEndTime)) {
+                            && booking_end_time.before(getEndTime) && roomNameId2.equals(roomId)) {
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
                         Log.d("BookingTesting", "onClick: 2");
 
                     }
                     else if (date.equals(booking_date) && booking_start_time.after(getTime)
-                            && booking_end_time.equals(getEndTime)) {
+                            && booking_end_time.equals(getEndTime) && roomNameId2.equals(roomId)) {
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
                         Log.d("BookingTesting", "onClick: 3");
 
                     }
                     else if (date.equals(booking_date) && booking_start_time.before(getTime)
-                            && booking_end_time.after(getEndTime)) {
+                            && booking_end_time.after(getEndTime) && roomNameId2.equals(roomId)) {
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
                         Log.d("BookingTesting", "onClick: 4");
 
                     }
                     else if (date.equals(booking_date) && booking_start_time.after(getTime)
-                            && booking_end_time.after(getEndTime) && getEndTime.after(booking_start_time)) {
+                            && booking_end_time.after(getEndTime) && getEndTime.after(booking_start_time) && roomNameId2.equals(roomId)) {
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
                         Log.d("BookingTesting", "onClick: 5");
 
                     }
                     else if (date.equals(booking_date) && booking_start_time.before(getTime)
-                            && booking_end_time.before(getEndTime) && getTime.before(booking_end_time)) {
+                            && booking_end_time.before(getEndTime) && getTime.before(booking_end_time) && roomNameId2.equals(roomId)) {
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
                         Log.d("BookingTesting", "onClick: 6");
 
                     }
                     else if (date.equals(booking_date) && booking_start_time.before(getTime)
-                            && booking_end_time.equals(getEndTime)) {
+                            && booking_end_time.equals(getEndTime) && roomNameId2.equals(roomId)) {
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
                         Log.d("BookingTesting", "onClick: 7");
 
                     }
                     else if (date.equals(booking_date) && booking_start_time.equals(getTime)
-                            && booking_end_time.after(getEndTime)) {
+                            && booking_end_time.after(getEndTime) && roomNameId2.equals(roomId)) {
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
                         Log.d("BookingTesting", "onClick: 8");
 
                     }
                     else if (date.equals(booking_date) && booking_start_time.equals(getTime)
-                            && booking_end_time.before(getEndTime)) {
+                            && booking_end_time.before(getEndTime) && roomNameId2.equals(roomId)) {
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
                         Log.d("BookingTesting", "onClick: 9");
 
                     }
-                    else if (date.equals(booking_date) && getTime != booking_start_time && getEndTime != booking_end_time) {
+                    else if (date.equals(booking_date) && getTime != booking_start_time && getEndTime != booking_end_time
+                            && roomNameId2.equals(roomId)) {
 
                         Intent intent1 = new Intent(getApplicationContext(), BookingConfirmationActivity.class);
                         intent1.putExtra("date", date);
