@@ -118,24 +118,30 @@ public class DetailsActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
 
-                            List<Bookable_class> list = new ArrayList<>();
+//                            ArrayList<Bookable_class> list = new ArrayList<>();
 
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Bookable_class bookableClass1 = document.toObject(Bookable_class.class);
-                                list.add(bookableClass1);
 
-                                for (int i=0; i<list.size(); i++) {
-                                    System.out.println(list.get(i));
-                                    booking_date = list.get(i).getDate();
-                                    booking_start_time_list = list.get(i).getStart_time();
-                                    booking_end_time_list = list.get(i).getEnd_time();
-                                    roomId = list.get(i).getRoom_id();
-                                    Log.d("sizeList", "onComplete: " + list.size());
-                                    Log.d("getDate", "onComplete: " + list.get(i).getDate());
-                                    Log.d("getStart_time", "onComplete: " + list.get(i).getStart_time());
+                                    booking_date = bookableClass1.getDate();
+                                    booking_start_time_list = bookableClass1.getStart_time();
+                                    booking_end_time_list = bookableClass1.getEnd_time();
+                                    roomId = bookableClass1.getRoom_id();
 
-                                }
+//                                list.add(bookableClass1);
+
+//                                for (int i=0; i<list.size(); i++) {
+//                                    System.out.println(list.get(i));
+//                                    booking_date = list.get(i).getDate();
+//                                    booking_start_time_list = list.get(i).getStart_time();
+//                                    booking_end_time_list = list.get(i).getEnd_time();
+//                                    roomId = list.get(i).getRoom_id();
+//                                    Log.d("sizeList", "onComplete: " + list.size());
+//                                    Log.d("getDate", "onComplete: " + list.get(i).getDate());
+//                                    Log.d("getStart_time", "onComplete: " + list.get(i).getStart_time());
+//
+//                                }
 
                                 String pattern = "HH:mm";
                                 SimpleDateFormat sdf = new SimpleDateFormat(pattern);
@@ -175,7 +181,7 @@ public class DetailsActivity extends AppCompatActivity {
                         Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
                         Log.d("BookingTesting", "onClick: 1");
                     }
-                    else if ( ! date.equals(booking_date) && roomNameId2.equals(roomId)) {
+                    else if ( (! date.equals(booking_date)) && roomNameId2.equals(roomId)) {
 
                         Intent intent1 = new Intent(getApplicationContext(), BookingConfirmationActivity.class);
                         intent1.putExtra("date", date);
