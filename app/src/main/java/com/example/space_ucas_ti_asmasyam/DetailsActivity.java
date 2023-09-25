@@ -202,7 +202,8 @@ public class DetailsActivity extends AppCompatActivity {
                             Log.d("BookingTestingStep2", "onClick: " + roomNameId2 + ":" + roomId);
                             if (!(!roomNameId2.equals(roomId) || !date.equals(booking_date) ||
                                     getEndTime.before(booking_start_time) ||
-                                    getTime.after(booking_end_time))) {
+                                    getTime.after(booking_end_time) || getEndTime.equals(booking_start_time)
+                            || getTime.equals(booking_end_time))) {
                                 Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
                                 Log.d("BookingTesting", "onClick: 1");
                                 break;
