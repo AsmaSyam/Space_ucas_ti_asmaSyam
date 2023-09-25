@@ -17,15 +17,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 
 public class BookingConfirmationActivity extends AppCompatActivity {
 
-    ActivityBookingConfirmationBinding binding ;
-    FirebaseFirestore firestore ;
-    Bookable_class bookableClass1 ;
-    room_class roomClass ;
+    ActivityBookingConfirmationBinding binding;
+    FirebaseFirestore firestore;
+    Bookable_class bookableClass1;
+    room_class roomClass;
 
+    ArrayList list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,26 +61,26 @@ public class BookingConfirmationActivity extends AppCompatActivity {
 //        binding.duration.setText(String.valueOf(duration));
 
 
-        firestore.collection("Room").whereEqualTo("name" ,name)
-                        .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+        firestore.collection("Room").whereEqualTo("name", name)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-                                        if (task.isSuccessful()) {
+                        if (task.isSuccessful()) {
 
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                                roomClass = document.toObject(room_class.class);
-                                                roomClass.setDocumentId(document.getId());
-                                                Log.d("documentId", "onComplete: " + document.getId());
-                                            }
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                roomClass = document.toObject(room_class.class);
+                                roomClass.setDocumentId(document.getId());
+                                Log.d("documentId", "onComplete: " + document.getId());
+                            }
 
-                                        } else {
-                                            Log.d("TAG", "onComplete: " + task.getException().getMessage());
-                                        }
+                        } else {
+                            Log.d("TAG", "onComplete: " + task.getException().getMessage());
+                        }
 
-                                    }
-                                });
+                    }
+                });
 
         binding.buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,11 +97,36 @@ public class BookingConfirmationActivity extends AppCompatActivity {
 
                 String notes = binding.editNotes.getText().toString();
 
-                Bookable_class bookableClass = new Bookable_class(roomClass.getDocumentId() , firstName , lastName , email , phone , startTime ,
-                        endTime ,date , duration , "" ,"" , "" , people , "" , ""
-                        , "booked up" , "" , "" , "" ,""  );
+                Bookable_class bookableClass = new Bookable_class(roomClass.getDocumentId(), firstName, lastName, email, phone, startTime,
+                        endTime, date, duration, "", "", "", people, "", ""
+                        , "booked up", "", "", "", "");
 
-                firestore.collection("Booking").document(roomClass.getDocumentId()).set(bookableClass);
+                firestore.collection("Booking").document().set(bookableClass);
+//                firestore.collection("Booking").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//
+//                            list = new ArrayList<>();
+//
+//
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Bookable_class bookableClass1 = document.toObject(Bookable_class.class);
+//                                if (bookableClass1.getRoom_id() .equals(roomClass.getDocumentId()) )
+//                                    list.add(bookableClass1);
+//                            }
+//                            list.add(bookableClass);
+//                            Map<String,Object> map = new HashMap<>();
+//
+//                            for(int i=0; i<list.size();i++){
+//                                map.put(String.valueOf(i),list.get(i));
+//                            }
+//
+//                        } else {
+//                            Log.d("TAG", "onComplete: " + task.getException().getMessage());
+//                        }
+//                    }
+//                });
 
 
 //                    firestore.collection("Booking").whereEqualTo(roomNameId , roomClass.getDocumentId())
@@ -129,7 +159,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
 
 
                 Toast.makeText(BookingConfirmationActivity.this, "Confirm and book", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext() , MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
 
             }

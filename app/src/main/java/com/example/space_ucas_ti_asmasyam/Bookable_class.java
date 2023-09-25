@@ -1,5 +1,7 @@
 package com.example.space_ucas_ti_asmasyam;
 
+import androidx.annotation.NonNull;
+
 public class Bookable_class {
 
     String room_id ;
@@ -226,5 +228,32 @@ public class Bookable_class {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return "Bookable_class{" +
+                "room_id='" + room_id + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone_number='" + phone_number + '\'' +
+                ", start_time='" + start_time + '\'' +
+                ", end_time='" + end_time + '\'' +
+                ", date='" + date + '\'' +
+                ", duration='" + duration + '\'' +
+                ", timezone='" + timezone + '\'' +
+                ", rrule='" + rrule + '\'' +
+                ", until='" + until + '\'' +
+                ", people='" + people + '\'' +
+                ", fees='" + fees + '\'' +
+                ", currency='" + currency + '\'' +
+                ", status='" + status + '\'' +
+                ", review_sent_at='" + review_sent_at + '\'' +
+                ", reviewed_at='" + reviewed_at + '\'' +
+                ", payment_status='" + payment_status + '\'' +
+                ", title='" + title + '\'' +
+                ", documentId='" + documentId + '\'' +
+                '}';
     }
 }

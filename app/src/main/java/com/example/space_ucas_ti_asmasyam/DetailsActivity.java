@@ -33,29 +33,29 @@ import java.util.Locale;
 public class DetailsActivity extends AppCompatActivity {
 
 
-    ActivityDetailsBinding binding ;
+    ActivityDetailsBinding binding;
 
 
-    int t1Hour, t1Minute ;
-    Calendar calendar ;
-    String date ;
+    int t1Hour, t1Minute;
+    Calendar calendar;
+    String date;
     String startTime;
     String endTime;
-    Date getTime ;
-    Date getEndTime ;
-    String duration ;
-    String booking_date ;
-    Date booking_start_time ;
+    Date getTime;
+    Date getEndTime;
+    String duration;
+    String booking_date;
+    Date booking_start_time;
     String roomId;
-    Date booking_end_time  ;
-    String booking_start_time_list ;
-    String booking_end_time_list ;
-    String roomNameId ;
-    String roomNameId2 ;
-    String people ;
-    FirebaseFirestore firestore ;
+    Date booking_end_time;
+    String booking_start_time_list;
+    String booking_end_time_list;
+    String roomNameId;
+    String roomNameId2;
+    String people;
+    FirebaseFirestore firestore;
 
-    ArrayList<Bookable_class> list ;
+    ArrayList<Bookable_class> list;
 
 
     @Override
@@ -120,7 +120,7 @@ public class DetailsActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
 
-                             list = new ArrayList<>();
+                            list = new ArrayList<>();
 
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
@@ -149,60 +149,78 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Log.d("BookingStartTime", "onClick: " + booking_start_time);
-                Log.d("BookingEndTime", "onClick: " + booking_end_time);
-                Log.d("BookingRoomId", "onClick: " + roomId);
-                Log.d("startTime", "onClick: " + getTime);
-                Log.d("endTime", "onClick: " + getEndTime);
-                Log.d("roomId", "onClick: " + roomNameId2);
-                Log.d("bookingDate", "onClick: "+ booking_date);
-                Log.d("Date", "onClick: "+ date);
-
                 if (date != null && startTime != null && endTime != null) {
-                for (int i=0; i<list.size(); i++) {
-                    System.out.println(list.get(i));
-                    booking_date = list.get(i).getDate();
-                    booking_start_time_list = list.get(i).getStart_time();
-                    booking_end_time_list = list.get(i).getEnd_time();
-                    roomId = list.get(i).getRoom_id();
-                    Log.d("sizeList", "onComplete: " + list.size());
-                    Log.d("getDate", "onComplete: " + list.get(i).getDate());
-                    Log.d("getStart_time", "onComplete: " + list.get(i).getStart_time());
+                    if (list.isEmpty()) {
+                        Intent intent1 = new Intent(getApplicationContext(), BookingConfirmationActivity.class);
+                        intent1.putExtra("date", date);
+                        intent1.putExtra("startTime", startTime);
+                        intent1.putExtra("endTime", endTime);
+                        intent1.putExtra("roomNameId", roomNameId);
+                        intent1.putExtra("people", people);
+                        intent1.putExtra("duration", duration);
+                        intent1.putExtra("name", name);
+                        startActivity(intent1);
+                    } else
+                        for (int i = 0; i < list.size(); i++) {
+                            Log.d("List-Item", "item: " + list.get(i));
+                            System.out.println(list.get(i));
+                            booking_date = list.get(i).getDate();
+                            booking_start_time_list = list.get(i).getStart_time();
+                            booking_end_time_list = list.get(i).getEnd_time();
+                            roomId = list.get(i).getRoom_id();
+                            Log.d("sizeList", "onComplete: " + list.size());
+                            Log.d("getDate", "onComplete: " + list.get(i).getDate());
+                            Log.d("getStart_time", "onComplete: " + list.get(i).getStart_time());
 
-                    String pattern = "HH:mm";
-                    SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-                    try {
-                        booking_start_time = sdf.parse(booking_start_time_list);
-                    } catch (ParseException e) {
-                        throw new RuntimeException(e);
-                    }
+                            String pattern = "hh:mm aa";
+                            SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+                            try {
+                                booking_start_time = sdf.parse(booking_start_time_list);
+                            } catch (ParseException e) {
+                                throw new RuntimeException(e);
+                            }
 
-                    try {
-                        booking_end_time = sdf.parse(booking_end_time_list);
-                    } catch (ParseException e) {
-                        throw new RuntimeException(e);
-                    }
+                            try {
+                                booking_end_time = sdf.parse(booking_end_time_list);
+                            } catch (ParseException e) {
+                                throw new RuntimeException(e);
+                            }
+
+                            Log.d("BookingStartTime", "onClick: " + booking_start_time);
+                            Log.d("BookingEndTime", "onClick: " + booking_end_time);
+                            Log.d("BookingRoomId", "onClick: " + roomId);
+                            Log.d("startTime", "onClick: " + getTime);
+                            Log.d("endTime", "onClick: " + getEndTime);
+                            Log.d("roomId", "onClick: " + roomNameId2);
+                            Log.d("bookingDate", "onClick: " + booking_date);
+                            Log.d("Date", "onClick: " + date);
 
 
+                            // هنا في اليوم نفسه بمشي صح بأنه ما بيختار نفس الوقت
+                            //ولكن لما اختار يوم تاني وبنفس الوقت بقلي محجوز
+                            // .فالي بدي اعمله اني اعدل على جزئية الفحص الخاصة بالوقت
+                            Log.d("BookingTestingStep2", "onClick: " + roomNameId2 + ":" + roomId);
+                            if (!(!roomNameId2.equals(roomId) || !date.equals(booking_date) ||
+                                    getEndTime.before(booking_start_time) ||
+                                    getTime.after(booking_end_time))) {
+                                Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
+                                Log.d("BookingTesting", "onClick: 1");
+                                break;
+                            }
+                            if (i == list.size() - 1) {
+                                Intent intent1 = new Intent(getApplicationContext(), BookingConfirmationActivity.class);
+                                intent1.putExtra("date", date);
+                                intent1.putExtra("startTime", startTime);
+                                intent1.putExtra("endTime", endTime);
+                                intent1.putExtra("roomNameId", roomNameId);
+                                intent1.putExtra("people", people);
+                                intent1.putExtra("duration", duration);
+                                intent1.putExtra("name", name);
+                                startActivity(intent1);
+                            }
 
-                        // هنا في اليوم نفسه بمشي صح بأنه ما بيختار نفس الوقت
-                        //ولكن لما اختار يوم تاني وبنفس الوقت بقلي محجوز
-                        // .فالي بدي اعمله اني اعدل على جزئية الفحص الخاصة بالوقت
-                        Log.d("BookingTestingStep2", "onClick: "+roomNameId2 + ":"+ roomId);
-                        if (date.equals(booking_date) && getTime.equals(booking_start_time) && getEndTime.equals(booking_end_time) && roomNameId2.equals(roomId)) {
-                            Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
-                            Log.d("BookingTesting", "onClick: 1");
-                        }else if(i == list.size()-1){
-                            Intent intent1 = new Intent(getApplicationContext(), BookingConfirmationActivity.class);
-                            intent1.putExtra("date", date);
-                            intent1.putExtra("startTime", startTime);
-                            intent1.putExtra("endTime", endTime);
-                            intent1.putExtra("roomNameId", roomNameId);
-                            intent1.putExtra("people", people);
-                            intent1.putExtra("duration", duration);
-                            intent1.putExtra("name", name);
-                            startActivity(intent1);
                         }
+
 //                        else if ( (! date.equals(booking_date)) && roomNameId2.equals(roomId)) {
 //
 //                            Intent intent1 = new Intent(getApplicationContext(), BookingConfirmationActivity.class);
@@ -292,13 +310,10 @@ public class DetailsActivity extends AppCompatActivity {
 //
 //                        }
 
-                }
+
                 } else {
                     Toast.makeText(DetailsActivity.this, "select the date and time you want", Toast.LENGTH_SHORT).show();
                 }
-
-
-
 
 
             }
@@ -316,35 +331,35 @@ public class DetailsActivity extends AppCompatActivity {
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
 
                         //Initialize hour and minute :
-                        t1Hour = hourOfDay ;
-                        t1Minute = minute ;
+                        t1Hour = hourOfDay;
+                        t1Minute = minute;
 
                         //set hour and minute in calender :
-                        calendar.set(0 , 0 , 0 , t1Hour , t1Minute);
+                        calendar.set(0, 0, 0, t1Hour, t1Minute);
 
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
 
 
-
-                        binding.textStartTime.setText(DateFormat.format("hh:mm aa" , calendar));
+                        binding.textStartTime.setText(DateFormat.format("hh:mm aa", calendar));
 //                        Toast.makeText(DetailsActivity.this, DateFormat.format("hh:mm aa" , calendar), Toast.LENGTH_SHORT).show();
-                          startTime = (String) DateFormat.format("hh:mm" , calendar);
+                        startTime = (String) DateFormat.format("hh:mm aa", calendar);
 
-                        String pattern = "hh:mm";
+                        String pattern = "hh:mm aa";
                         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
                         try {
-                            getTime = sdf.parse(DateFormat.format("hh:mm aa" , calendar).toString());
+                            getTime = sdf.parse(DateFormat.format("hh:mm aa", calendar).toString());
+                            Log.d("DetailsActivity", "onTimeSet: getTimeDialog: " + getTime.toString());
                         } catch (ParseException e) {
                             throw new RuntimeException(e);
                         }
 
                     }
-                }, 12 , 0 , false
+                }, 12, 0, false
         );
 
         // timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.));
 
-        timePickerDialog.updateTime(t1Hour , t1Minute);
+        timePickerDialog.updateTime(t1Hour, t1Minute);
         timePickerDialog.show();
     }
 
@@ -357,45 +372,44 @@ public class DetailsActivity extends AppCompatActivity {
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
 
                         //Initialize hour and minute :
-                        t1Hour = hourOfDay ;
-                        t1Minute = minute ;
+                        t1Hour = hourOfDay;
+                        t1Minute = minute;
 
                         //set hour and minute in calender :
-                        calendar.set(0 , 0 , 0 , t1Hour , t1Minute);
+                        calendar.set(0, 0, 0, t1Hour, t1Minute);
 
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
 
 
-
-                        binding.textEndTime.setText(DateFormat.format("hh:mm aa" , calendar));
+                        binding.textEndTime.setText(DateFormat.format("hh:mm aa", calendar));
 //                        Toast.makeText(DetailsActivity.this, DateFormat.format("hh:mm aa" , calendar), Toast.LENGTH_SHORT).show();
-                        endTime = (String) DateFormat.format("hh:mm aa" , calendar);
+                        endTime = (String) DateFormat.format("hh:mm aa", calendar);
 
-                        String pattern = "HH:mm";
+                        String pattern = "hh:mm aa";
                         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
                         try {
-                            getEndTime = sdf.parse(DateFormat.format("hh:mm aa" , calendar).toString());
+                            getEndTime = sdf.parse(DateFormat.format("hh:mm aa", calendar).toString());
+                            Log.d("DetailsActivity", "onTimeSet: " + getEndTime);
                             duration = String.valueOf(getEndTime.getTime() - getTime.getTime());
                         } catch (ParseException e) {
                             throw new RuntimeException(e);
                         }
 
                     }
-                }, 12 , 0 , false
+                }, 12, 0, false
         );
 
         // timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.));
 
-        timePickerDialog.updateTime(t1Hour , t1Minute);
+        timePickerDialog.updateTime(t1Hour, t1Minute);
         timePickerDialog.show();
     }
 
 
-
-    public void getDate(){
+    public void getDate() {
 
         long date = binding.calenderId.getDate();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy" , Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
         calendar.setTimeInMillis(date);
 
         String selected_date = simpleDateFormat.format(calendar.getTime());
