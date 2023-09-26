@@ -150,77 +150,78 @@ public class DetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (date != null && startTime != null && endTime != null) {
-                    if (list.isEmpty()) {
-                        Intent intent1 = new Intent(getApplicationContext(), BookingConfirmationActivity.class);
-                        intent1.putExtra("date", date);
-                        intent1.putExtra("startTime", startTime);
-                        intent1.putExtra("endTime", endTime);
-                        intent1.putExtra("roomNameId", roomNameId);
-                        intent1.putExtra("people", people);
-                        intent1.putExtra("duration", duration);
-                        intent1.putExtra("name", name);
-                        startActivity(intent1);
-                    } else
-                        for (int i = 0; i < list.size(); i++) {
-                            Log.d("List-Item", "item: " + list.get(i));
-                            System.out.println(list.get(i));
-                            booking_date = list.get(i).getDate();
-                            booking_start_time_list = list.get(i).getStart_time();
-                            booking_end_time_list = list.get(i).getEnd_time();
-                            roomId = list.get(i).getRoom_id();
-                            Log.d("sizeList", "onComplete: " + list.size());
-                            Log.d("getDate", "onComplete: " + list.get(i).getDate());
-                            Log.d("getStart_time", "onComplete: " + list.get(i).getStart_time());
+                    if (getEndTime.after(getTime)){
+                        if (list.isEmpty()) {
+                            Intent intent1 = new Intent(getApplicationContext(), BookingConfirmationActivity.class);
+                            intent1.putExtra("date", date);
+                            intent1.putExtra("startTime", startTime);
+                            intent1.putExtra("endTime", endTime);
+                            intent1.putExtra("roomNameId", roomNameId);
+                            intent1.putExtra("people", people);
+                            intent1.putExtra("duration", duration);
+                            intent1.putExtra("name", name);
+                            startActivity(intent1);
+                        } else
+                            for (int i = 0; i < list.size(); i++) {
+                                Log.d("List-Item", "item: " + list.get(i));
+                                System.out.println(list.get(i));
+                                booking_date = list.get(i).getDate();
+                                booking_start_time_list = list.get(i).getStart_time();
+                                booking_end_time_list = list.get(i).getEnd_time();
+                                roomId = list.get(i).getRoom_id();
+                                Log.d("sizeList", "onComplete: " + list.size());
+                                Log.d("getDate", "onComplete: " + list.get(i).getDate());
+                                Log.d("getStart_time", "onComplete: " + list.get(i).getStart_time());
 
-                            String pattern = "hh:mm aa";
-                            SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-                            try {
-                                booking_start_time = sdf.parse(booking_start_time_list);
-                            } catch (ParseException e) {
-                                throw new RuntimeException(e);
+                                String pattern = "hh:mm aa";
+                                SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+                                try {
+                                    booking_start_time = sdf.parse(booking_start_time_list);
+                                } catch (ParseException e) {
+                                    throw new RuntimeException(e);
+                                }
+
+                                try {
+                                    booking_end_time = sdf.parse(booking_end_time_list);
+                                } catch (ParseException e) {
+                                    throw new RuntimeException(e);
+                                }
+
+                                Log.d("BookingStartTime", "onClick: " + booking_start_time);
+                                Log.d("BookingEndTime", "onClick: " + booking_end_time);
+                                Log.d("BookingRoomId", "onClick: " + roomId);
+                                Log.d("startTime", "onClick: " + getTime);
+                                Log.d("endTime", "onClick: " + getEndTime);
+                                Log.d("roomId", "onClick: " + roomNameId2);
+                                Log.d("bookingDate", "onClick: " + booking_date);
+                                Log.d("Date", "onClick: " + date);
+
+
+                                // هنا في اليوم نفسه بمشي صح بأنه ما بيختار نفس الوقت
+                                //ولكن لما اختار يوم تاني وبنفس الوقت بقلي محجوز
+                                // .فالي بدي اعمله اني اعدل على جزئية الفحص الخاصة بالوقت
+                                Log.d("BookingTestingStep2", "onClick: " + roomNameId2 + ":" + roomId);
+                                if (!(!roomNameId2.equals(roomId) || !date.equals(booking_date) ||
+                                        getEndTime.before(booking_start_time) ||
+                                        getTime.after(booking_end_time) || getEndTime.equals(booking_start_time)
+                                        || getTime.equals(booking_end_time))) {
+                                    Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
+                                    Log.d("BookingTesting", "onClick: 1");
+                                    break;
+                                }
+                                if (i == list.size() - 1) {
+                                    Intent intent1 = new Intent(getApplicationContext(), BookingConfirmationActivity.class);
+                                    intent1.putExtra("date", date);
+                                    intent1.putExtra("startTime", startTime);
+                                    intent1.putExtra("endTime", endTime);
+                                    intent1.putExtra("roomNameId", roomNameId);
+                                    intent1.putExtra("people", people);
+                                    intent1.putExtra("duration", duration);
+                                    intent1.putExtra("name", name);
+                                    startActivity(intent1);
+                                }
+
                             }
-
-                            try {
-                                booking_end_time = sdf.parse(booking_end_time_list);
-                            } catch (ParseException e) {
-                                throw new RuntimeException(e);
-                            }
-
-                            Log.d("BookingStartTime", "onClick: " + booking_start_time);
-                            Log.d("BookingEndTime", "onClick: " + booking_end_time);
-                            Log.d("BookingRoomId", "onClick: " + roomId);
-                            Log.d("startTime", "onClick: " + getTime);
-                            Log.d("endTime", "onClick: " + getEndTime);
-                            Log.d("roomId", "onClick: " + roomNameId2);
-                            Log.d("bookingDate", "onClick: " + booking_date);
-                            Log.d("Date", "onClick: " + date);
-
-
-                            // هنا في اليوم نفسه بمشي صح بأنه ما بيختار نفس الوقت
-                            //ولكن لما اختار يوم تاني وبنفس الوقت بقلي محجوز
-                            // .فالي بدي اعمله اني اعدل على جزئية الفحص الخاصة بالوقت
-                            Log.d("BookingTestingStep2", "onClick: " + roomNameId2 + ":" + roomId);
-                            if (!(!roomNameId2.equals(roomId) || !date.equals(booking_date) ||
-                                    getEndTime.before(booking_start_time) ||
-                                    getTime.after(booking_end_time) || getEndTime.equals(booking_start_time)
-                            || getTime.equals(booking_end_time))) {
-                                Toast.makeText(DetailsActivity.this, "The room is booked up in this time", Toast.LENGTH_SHORT).show();
-                                Log.d("BookingTesting", "onClick: 1");
-                                break;
-                            }
-                            if (i == list.size() - 1) {
-                                Intent intent1 = new Intent(getApplicationContext(), BookingConfirmationActivity.class);
-                                intent1.putExtra("date", date);
-                                intent1.putExtra("startTime", startTime);
-                                intent1.putExtra("endTime", endTime);
-                                intent1.putExtra("roomNameId", roomNameId);
-                                intent1.putExtra("people", people);
-                                intent1.putExtra("duration", duration);
-                                intent1.putExtra("name", name);
-                                startActivity(intent1);
-                            }
-
-                        }
 
 //                        else if ( (! date.equals(booking_date)) && roomNameId2.equals(roomId)) {
 //
@@ -310,8 +311,9 @@ public class DetailsActivity extends AppCompatActivity {
 //                            startActivity(intent1);
 //
 //                        }
-
-
+                }else {
+                        Toast.makeText(DetailsActivity.this, "The end time before start time", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(DetailsActivity.this, "select the date and time you want", Toast.LENGTH_SHORT).show();
                 }
