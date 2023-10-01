@@ -88,20 +88,28 @@ public class BookingConfirmationActivity extends AppCompatActivity {
 
                 Log.d("add", "");
 
-                String firstName = binding.editFirstName.getText().toString();
-                String lastName = binding.editLastName.getText().toString();
-                String email = binding.editEmailAddress.getText().toString();
-                String phone = binding.editPhoneNumber.getText().toString();
-                String duration = binding.duration.getText().toString();
-                String date = binding.dateText.getText().toString();
+                if (!(binding.editFirstName.getText().toString().isEmpty() ||
+                        binding.editLastName.getText().toString().isEmpty() ||
+                        binding.editEmailAddress.getText().toString().isEmpty() ||
+                        binding.editPhoneNumber.getText().toString().isEmpty() ||
+                        binding.duration.getText().toString().isEmpty() ||
+                        binding.dateText.getText().toString().isEmpty()||
+                        binding.editNotes.getText().toString().isEmpty())) {
 
-                String notes = binding.editNotes.getText().toString();
+                    String firstName = binding.editFirstName.getText().toString();
+                    String lastName = binding.editLastName.getText().toString();
+                    String email = binding.editEmailAddress.getText().toString();
+                    String phone = binding.editPhoneNumber.getText().toString();
+                    String duration = binding.duration.getText().toString();
+                    String date = binding.dateText.getText().toString();
 
-                Bookable_class bookableClass = new Bookable_class(roomClass.getDocumentId(), firstName, lastName, email, phone, startTime,
-                        endTime, date, duration, "", "", "", people, "", ""
-                        , "booked up", "", "", "", "");
+                    String notes = binding.editNotes.getText().toString();
 
-                firestore.collection("Booking").document().set(bookableClass);
+                    Bookable_class bookableClass = new Bookable_class(roomClass.getDocumentId(), firstName, lastName, email, phone, startTime,
+                            endTime, date, duration, "", "", "", people, "", ""
+                            , "booked up", "", "", "", "");
+
+                    firestore.collection("Booking").document().set(bookableClass);
 //                firestore.collection("Booking").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 //                    @Override
 //                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -158,10 +166,12 @@ public class BookingConfirmationActivity extends AppCompatActivity {
 //                        .collection("myStatus").document(bookableClass1.getDocumentId()).set(status_class);
 
 
-                Toast.makeText(BookingConfirmationActivity.this, "Confirm and book", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    Toast.makeText(BookingConfirmationActivity.this, "Confirm and book", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
-
+                }else {
+                    Toast.makeText(BookingConfirmationActivity.this, "Enter all data", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
